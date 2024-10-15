@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+    <!-- Group definition (if not already defined) -->
+    <record id="group_student_access" model="res.groups">
+      <field name="name">Student Access Group</field>
+    </record>
+
+    <!-- Access rights for op.student.line model -->
+    <record id="access_op_student_line" model="ir.model.access">
+      <field name="name">op.student.line access</field>
+      <field name="model_id" ref="model_op_student_line" />
+      <field name="group_id" ref="group_student_access" />
+      <field name="perm_read" eval="1" /> <!-- Allow read access -->
+      <field name="perm_write" eval="1" /> <!-- Allow write access -->
+      <field name="perm_create" eval="1" /> <!-- Allow create access -->
+      <field name="perm_unlink" eval="1" /> <!-- Allow delete access -->
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <data>
+
+    <record id="action_manage_session_configuration" model="ir.actions.act_window">
+      <field name="name">Settings</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.config.settings</field>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+      <field name="context">{'module': 'manage_session'}</field>
+    </record>
+
+    <menuitem id="menu_manage_session_root"
+      name="Manage Sessions"
+      sequence="220"
+      web_icon="manage_session,static/description/icon-session.png" />
+
+    <menuitem id="menu_manage_session_main"
+      name="Ongoing Sessions"
+      parent="menu_manage_session_root"
+      sequence="10"
+      action="act_open_op_session_view" />
+
+    <menuitem id="menu_manage_session_general"
+      name="General"
+      parent="menu_manage_session_root"
+      sequence="30" />
+
+
+    <menuitem name="Settings"
+      id="menu_manage_session_config"
+      action="action_manage_session_configuration"
+      parent="menu_manage_session_general"
+      sequence="1" />
+
+
+  </data>
+</odoo>
