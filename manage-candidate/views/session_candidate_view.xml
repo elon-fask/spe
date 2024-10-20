@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- session candidate view list-->
+    <record id="view_session_candidate_list" model="ir.ui.view">
+      <field name="name">mo.session.candidate.list</field>
+      <field name="model">mo.session.candidate</field>
+      <field name="arch" type="xml">
+        <list string="Candidate Sessions Details">
+          <field name="candidate_id" />
+          <field name="session_id" />
+          <field name="state" />
+        </list>
+      </field>
+    </record>
+
+    <!-- session candidate view form -->
+    <record id="view_session_candidate_form" model="ir.ui.view">
+      <field name="name">mo.session.candidate.form</field>
+      <field name="model">mo.session.candidate</field>
+      <field name="arch" type="xml">
+        <form string="Candidate Sessions Details">
+          <header>
+            <field name="state" string="state" widget="statusbar" />
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="candidate_id" />
+              </group>
+              <group>
+                <field name="session_id" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- session candidate search view -->
+    <record id="view_session_candidate_search" model="ir.ui.view">
+      <field name="name">mo.session.candidate.search</field>
+      <field name="model">mo.session.candidate</field>
+      <field name="arch" type="xml">
+        <search>
+          <group expand="1" string="Group By">
+            <filter string="Candidate" name="candidate_id" domain="[]"
+              context="{'group_by':'candidate_id'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <!-- Pivot View-->
+    <record id="view_session_candidate_pivot" model="ir.ui.view">
+      <field name="name">mo.session.candidate.pivot</field>
+      <field name="model">mo.session.candidate</field>
+      <field name="arch" type="xml">
+        <pivot string="Session Enrolled Candidate">
+          <field name="candidate_id" />
+          <field name="session_id" type="row" />
+          <field name="state" />
+        </pivot>
+      </field>
+    </record>
+
+
+    <!-- Actions-->
+    <record model="ir.actions.act_window" id="act_open_mo_session_candidate_view">
+      <field name="name">Session Candidate Details</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mo.session.candidate</field>
+      <field name="binding_view_types">form</field>
+      <field name="view_mode">list,form,pivot</field>
+      <field name="search_view_id" ref="view_session_candidate_search" />
+    </record>
+
+
+  </data>
+
+</odoo>

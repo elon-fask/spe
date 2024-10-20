@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- session list view -->
+    <record id="view_session_list" model="ir.ui.view">
+      <field name="name">mo.session.list</field>
+      <field name="model">mo.session</field>
+      <field name="arch" type="xml">
+        <list string="Manage Sessions">
+          <field name="session_name" />
+          <field name="start_date" />
+          <field name="end_date" />
+          <field name="assigned_staff" />
+          <field name="test_site_coordinator" />
+          <field name="materials_status" />
+        </list>
+      </field>
+    </record>
+
+    <!-- session form view -->
+    <record id="view_session_form" model="ir.ui.view">
+      <field name="name">mo.session.form</field>
+      <field name="model">mo.session</field>
+      <field name="arch" type="xml">
+        <form string="Manage Sessions">
+          <header>
+            <field name="state" string="state" widget="statusbar" />
+          </header>
+          <sheet>
+            <div name="button_box" class="oe_button_box"></div>
+            <field name="active" invisible="1" />
+            <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+              invisible="active == True" />
+            <div style="width:100%;" class="row align-items-center">
+              <div class="mb16 col-8 col-lg-10 px-0">
+                <div class="row">
+                  <h2 class="col-12 col-lg-10">
+                    <table>
+                      <tr>
+                        <td style="padding-right:10px;">
+                          <field name="session_name" required="1" placeholder="Session Name" />
+                        </td>
+                        <td style="padding-right:10px;">
+                          <field name="school" placeholder="School" />
+                        </td>
+                      </tr>
+                    </table>
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <notebook colspan="4">
+              <page name="Session info" string="Session Information">
+                <group name="session-data">
+                  <group>
+                    <field name="session_number" />
+                    <label for="test_site_address" string="Test Site Address" />
+                    <div name="o_address_format">
+                      <field name="test_site_address" placeholder="street ..." />
+                      <div class="address_format">
+                        <field name="test_site_city" placeholder="City" style="width: 40%" />
+                        <field name="test_site_state" placeholder="State" style="width: 20%" />
+                        <field name="test_site_zip" placeholder="ZIP" style="width: 20%" />
+                      </div>
+                    </div>
+
+                  </group>
+                  <group>
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="evaluation_date" />
+                    <field name="registration_close_date" />
+                    <field name="enrollment_type" />
+
+                  </group>
+                  <separator string="Staff" />
+                  <group>
+                    <field name="assigned_staff" />
+                    <field name="test_site_coordinator" />
+                    <field name="evaluation_type" />
+                    <field name="materials_status" />
+                  </group>
+                  <separator string="miscellaneous" colspan="2" />
+                  <group>
+                    <field name="nccco_fee_note" />
+                  </group>
+                </group>
+              </page>
+              <page name="Candidate Enrolled" string="Candidate Enrolled">
+                <field name="session_candidate_details_ids" />
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- session search view-->
+    <record id="view_session_search" model="ir.ui.view">
+      <field name="name">mo.session.search</field>
+      <field name="model">mo.session</field>
+      <field name="arch" type="xml">
+        <search>
+          <group expand="1" string="Group By">
+            <filter string="Session Name" name="session_name" domain="[]"
+              context="{'group_by':'session_name'}" />
+            <filter string="school name" name="school" domain="[]"
+              context="{'group_by':'school'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <!-- actions-->
+    <record model="ir.actions.act_window" id="act_open_mo_session_view">
+      <field name="name">Sessions</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mo.session</field>
+      <field name="binding_view_types">form</field>
+      <field name="view_mode">list,form</field>
+      <field name="search_view_id" ref="view_session_search" />
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_mo_session_view_list">
+      <field name="act_window_id" ref="act_open_mo_session_view" />
+      <field name="sequence" eval="10" />
+      <field name="view_mode">list</field>
+      <field name="view_id" ref="view_session_list" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_mo_session_view_form">
+      <field name="act_window_id" ref="act_open_mo_session_view" />
+      <field name="sequence" eval="20" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_session_form" />
+    </record>
+
+
+  </data>
+</odoo>

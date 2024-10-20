@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <menuitem id="menu_manage_candidate_root"
+    name="Manage Candidate"
+    sequence="220"
+  />
+  <menuitem id="menu_manage_candidate_main"
+    name="Candidate"
+    parent="menu_manage_candidate_root"
+    sequence="10"
+    action="act_open_mo_candidate_view"
+  />
+  <menuitem id="menu_manage_session_main"
+    name="Session"
+    parent="menu_manage_candidate_root"
+    sequence="20"
+    action="act_open_mo_session_view"
+  />
+  <!-- <menuitem id="menu_application_main" -->
+  <!--   name="Applications" -->
+  <!--   parent="menu_manage_candidate_root" -->
+  <!--   sequence="20" -->
+  <!-- /> -->
+  <!-- <menuitem id="menu_recent_application_sub" -->
+  <!--   name="Recent Applications" -->
+  <!--   parent="menu_application_main" -->
+  <!--   sequence="10" -->
+  <!--   action="act_open_recent_application_view" /> -->
+  <!-- <menuitem id="menu_manage_application_view" -->
+  <!--   name="Manage Applications" -->
+  <!--   parent="menu_application_main" -->
+  <!--   sequence="20" -->
+  <!--   action="act_open_mo_manage_application" /> -->
+</odoo>
