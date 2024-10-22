@@ -79,7 +79,10 @@ class Session(models.Model):
         required=True,
     )
     test_site_coordinator = fields.Selection(
-        selection=[("site_coordinator1", "Jessica Amick")],
+        selection=[
+            ("site_coordinator1", "Jessica Amick"),
+            ("site_coordinator2", "site_coordinator2"),
+        ],
         string="Test Site Coordinator",
         required=True,
     )

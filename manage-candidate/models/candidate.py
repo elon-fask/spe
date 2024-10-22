@@ -16,7 +16,12 @@ class CandidateApplicationLine(models.Model):
         "mo.candidate", "Candidate", ondelete="cascade", tracking=True
     )
     application_id = fields.Many2one(
-        "mo.application", "Application", required=True, tracking=True
+        "mo.application",
+        "Application",
+        required=True,
+        tracking=True,
+        store=True,
+        # domain=[("state", "=", "valid")],
     )
     state = fields.Selection(
         [
@@ -52,9 +57,9 @@ class CandidateSession(models.Model):
     _rec_name = "candidate_id"
 
     candidate_id = fields.Many2one(
-        "mo.candidate", "Candidate", ondelete="cascade", tracking=True
+        "mo.candidate", "Candidate", ondelete="cascade", tracking=True,store=True
     )
-    session_id = fields.Many2one("mo.session", "Session", required=True, tracking=True)
+    session_id = fields.Many2one("mo.session", "Session",stor=True, required=True, tracking=True)
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -62,7 +67,7 @@ class CandidateSession(models.Model):
             ("cancel", "Upcoming"),
         ],
         string="Status",
-        default="valid",
+        default="done",
     )
     start_date = fields.Date("Start Date", tracking=True)
     end_date = fields.Date("End Date", tracking=True)
@@ -102,11 +107,11 @@ class Candidate(models.Model):
     #     "mo.candidate.session", "candidate_id", "Session Details"
     # )
     session_details_ids = fields.One2many(
-        "mo.candidate.session", "candidate_id", "Session Details"
+        "mo.candidate.session", "candidate_id", "Session Details", store=True, required=True
     )
 
     application_line_ids = fields.One2many(
-        "mo.candidate.application.line", "candidate_id", "Application Line"
+        "mo.candidate.application.line", "candidate_id", "Application Line", store=True, required=True
     )
     gender = fields.Selection(
         [("m", "Male"), ("f", "Female"), ("o", "Other")],
