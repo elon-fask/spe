@@ -8,6 +8,23 @@
     <record id="group_manage_session_assess" model="res.groups">
       <field name="name">Manage Session Access Group</field>
     </record>
+    <record id="group_manage_application_line_access" model="res.groups">
+      <field name="name">Manage Application Line Access Group</field>
+    </record>
+    <record id="group_manage_application_access" model="res.groups">
+      <field name="name">Manage Applications access group</field>
+    </record>
+
+    <!-- Access rights for mo.candidate.session model -->
+    <record id="access_mo_application" model="ir.model.access">
+      <field name="name">mo.application access</field>
+      <field name="model_id" ref="model_mo_application" />
+      <field name="group_id" ref="group_manage_application_access" />
+      <field name="perm_read" eval="1" /> <!-- Allow read access -->
+      <field name="perm_write" eval="1" /> <!-- Allow write access -->
+      <field name="perm_create" eval="1" /> <!-- Allow create access -->
+      <field name="perm_unlink" eval="1" /> <!-- Allow delete access -->
+    </record>
 
     <!-- Access rights for op.student.line model -->
     <record id="access_mo_candidate_session" model="ir.model.access">
@@ -29,5 +46,16 @@
       <field name="perm_create" eval="1" />
       <field name="perm_unlink" eval="1" />
     </record>
+    <!-- access right for mo.candidate.application.line access-->
+    <record id="access_mo_candidate_application_line" model="ir.model.access">
+      <field name="name">mo.candidate.application.line access</field>
+      <field name="model_id" ref="model_mo_candidate_application_line" />
+      <field name="group_id" ref="group_manage_application_line_access" />
+      <field name="perm_read" eval="1" />
+      <field name="perm_write" eval="1" />
+      <field name="perm_create" eval="1" />
+      <field name="perm_unlink" eval="1" />
+    </record>
+
   </data>
 </odoo>

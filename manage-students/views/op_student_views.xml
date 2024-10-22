@@ -1,151 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
-        <!-- View op.student View List -->
-        <record id="view_op_student_list" model="ir.ui.view">
-            <field name="name">view.op.student.list</field>
-            <field name="model">op.student</field>
-            <field name="arch" type="xml">
-                <list>
-                    <field name="first_name"/>
-                    <field name="last_name"/>
-                    <field name="company_name" />
-                    <field name="amount_owed" />
+  <data noupdate="1">
+    <!-- View op.student View List -->
+    <record id="view_op_student_list" model="ir.ui.view">
+      <field name="name">view.op.student.list</field>
+      <field name="model">op.student</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="first_name" />
+          <field name="last_name" />
+          <field name="company_name" />
+          <field name="amount_owed" />
+          <field name="is_purchase_order" />
+        </list>
+      </field>
+    </record>
+
+    <!-- View op.student form -->
+    <record id="view_op_student_form" model="ir.ui.view">
+      <field name="name">view.op.student.form</field>
+      <field name="model">op.student</field>
+      <field name="arch" type="xml">
+        <form string="Student">
+          <sheet>
+            <div name="button_box" class="oe_button_box"></div>
+            <field name="active" invisible="1" />
+            <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+              invisible="active == True" />
+            <div style="width:100%;" class="row align-items-center">
+              <div class="col-4 col-lg-2" style="text-align-last: center;">
+                <field name="image_1920" widget="image" class="oe_left oe_avatar"
+                  style="margin-right: 30px !important;" />
+              </div>
+              <div class="mb16 col-8 col-lg-10 px-0">
+                <div class="row">
+                  <h2 class="col-12 col-lg-10">
+                    <table>
+                      <tr>
+                        <td style="padding-right:10px;">
+                          <field name="first_name" required="1" placeholder="First Name" />
+                        </td>
+                        <td style="padding-right:10px;">
+                          <field name="middle_name" placeholder="Middle Name" />
+                        </td>
+                        <td style="padding-right:10px;">
+                          <field name="last_name" required="1" placeholder="Last Name" />
+                        </td>
+                      </tr>
+                    </table>
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <notebook colspan="4">
+              <page name="personal_information" string="Personal Information">
+                <group name="personal_detail">
+                  <group>
+                    <field name="gender" required="1" />
+                    <field name="birth_date" required="1" />
+                    <!-- <label for="type"/> -->
+                    <label for="street" string="Address" />
+                    <div name="o_address_format">
+                      <field name="street" placeholder="Street..." />
+                      <!-- <field name="street2" placeholder="Street2"/> -->
+                      <div class="address_format">
+                        <field name="city" placeholder="City" style="width: 40%" />
+                        <field name="zip" placeholder="ZIP" style="width: 20%" />
+                      </div>
+                    </div>
+                  </group>
+                  <group>
                     <field name="is_purchase_order" />
-                </list>
-            </field>
-        </record>
+                    <field name="email" required="1" />
+                    <field name="mobile" />
+                    <field name="amount_owed" />
+                  </group>
+                  <separator string="Company Information" />
+                  <group>
+                    <field name="company_name" placeholder="Company | Organisation" />
+                    <field name="contact_name" placeholder="COntact Name" />
+                    <field name="contact_email" string="Contact email" />
+                    <field name="company_address" placeholder="Address ..." />
+                    <field name="company_city" placeholder="City" />
+                    <field name="company_state" placeholder="State" />
+                    <field name="company_zip" placeholder="ZIP" />
+                  </group>
+                  <separator string="Miscellaneous" colspan="2" />
+                  <group colspan="3">
+                    <field name="gr_no" required="1" />
+                    <field name="cco_id" string="CCO ID" />
+                    <field name="cco_certification_number" />
+                  </group>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
-        <!-- View op.student form -->
-        <record id="view_op_student_form" model="ir.ui.view">
-            <field name="name">view.op.student.form</field>
-            <field name="model">op.student</field>
-            <field name="arch" type="xml">
-                <form string="Student">
-                    <sheet>
-                        <div name="button_box" class="oe_button_box"></div>
-                        <field name="active" invisible="1"/>
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active == True"/>
-                        <div style="width:100%;" class="row align-items-center">
-                            <div class="col-4 col-lg-2" style="text-align-last: center;">
-                                <field name="image_1920" widget="image" class="oe_left oe_avatar" style="margin-right: 30px !important;"/>
-                            </div>
-                            <div class="mb16 col-8 col-lg-10 px-0">
-                                <div class="row">
-                                    <h2 class="col-12 col-lg-10">
-                                        <table>
-                                            <tr>
-                                                <td style="padding-right:10px;">
-                                                    <field name="first_name" required="1" placeholder="First Name"/>
-                                                </td>
-                                                <td style="padding-right:10px;">
-                                                    <field name="middle_name" placeholder="Middle Name"/>
-                                                </td>
-                                                <td style="padding-right:10px;">
-                                                    <field name="last_name" required="1" placeholder="Last Name"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </h2>
-                                </div>
-                            </div>
-                        </div>
-                        <notebook colspan="4">
-                            <page name="personal_information" string="Personal Information">
-                                <group name="personal_detail">
-                                    <group>
-                                        <field name="gender" required="1"/>
-                                        <field name="birth_date" required="1"/>
-                                        <!-- <label for="type"/> -->
-                                        <label for="street" string="Address"/>
-                                        <div name="o_address_format">
-                                            <field name="street" placeholder="Street..."/>
-                                            <!-- <field name="street2" placeholder="Street2"/> -->
-                                            <div class="address_format">
-                                                <field name="city" placeholder="City" style="width: 40%"/>
-                                                <field name="zip" placeholder="ZIP" style="width: 20%"/>
-                                            </div>
-                                        </div>
-                                    </group>
-                                    <group>
-                                        <field name="is_purchase_order"/>
-                                        <field name="email" required="1"/>
-                                        <field name="mobile"/>
-                                        <field name="amount_owed"/>
-                                    </group>
-                                    <separator string= "Company Information"/>
-                                    <group>
-                                        <field name="company_name" placeholder="Company | Organisation"/>
-                                        <field name="contact_name" placeholder="COntact Name" />
-                                        <field name="contact_email" string="Contact email" />
-                                        <field name="company_address" placeholder="Address ..."/>
-                                        <field name="company_city" placeholder="City" />
-                                        <field name="company_state" placeholder="State" />
-                                        <field name="company_zip" placeholder="ZIP" />
-                                    </group>
-                                    <separator string="Miscellaneous" colspan="2"/>
-                                    <group colspan="3">
-                                        <field name="gr_no" required="1"/>
-                                        <field name="cco_id" string="CCO ID" />
-                                        <field name="cco_certification_number" />
-                                    </group>
-                                </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+    <!-- View op.student search -->
+    <record id="view_op_student_search" model="ir.ui.view">
+      <field name="name">view.op.student.search</field>
+      <field name="model">op.student</field>
+      <field name="arch" type="xml">
+        <search>
+          <group expand="1" string="Group By">
+            <filter string="First Name" name="first_name" domain="[]"
+              context="{'group_by':'first_name'}" />
+            <filter string="Company Name" name="company_name" domain="[]"
+              context="{'group_by':'company_name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
 
-        <!-- View op.student search -->
-        <record id="view_op_student_search" model="ir.ui.view">
-            <field name="name">view.op.student.search</field>
-            <field name="model">op.student</field>
-            <field name="arch" type="xml">
-                <search>
-                    <group expand="1" string="Group By">
-                        <filter string="First Name" name="first_name" domain="[]" context="{'group_by':'first_name'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
+    <!-- Action op.student -->
+    <record model="ir.actions.act_window" id="act_open_op_student_view">
+      <field name="name">Students</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">op.student</field>
+      <field name="binding_view_types">form</field>
+      <field name="view_mode">list,form</field>
+      <field name="search_view_id" ref="view_op_student_search" />
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+    </record>
 
-        <!-- Action op.student -->
-        <record model="ir.actions.act_window" id="act_open_op_student_view">
-            <field name="name">Students</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">op.student</field>
-            <field name="binding_view_types">form</field>
-            <field name="view_mode">list,form</field>
-            <field name="search_view_id" ref="view_op_student_search"/>
-            <field name="domain">[]</field>
-            <field name="context">{}</field>
-        </record>
+    <record model="ir.actions.act_window.view" id="act_open_op_student_view_form">
+      <field name="act_window_id" ref="act_open_op_student_view" />
+      <field name="sequence" eval="20" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_op_student_form" />
+    </record>
 
-        <record model="ir.actions.act_window.view" id="act_open_op_student_view_form">
-            <field name="act_window_id" ref="act_open_op_student_view"/>
-            <field name="sequence" eval="20"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_op_student_form"/>
-        </record>
-
-        <record model="ir.actions.act_window.view" id="act_open_op_student_view_list">
-            <field name="act_window_id" ref="act_open_op_student_view"/>
-            <field name="sequence" eval="10"/>
-            <field name="view_mode">list</field>
-            <field name="view_id" ref="view_op_student_list"/>
-        </record>
+    <record model="ir.actions.act_window.view" id="act_open_op_student_view_list">
+      <field name="act_window_id" ref="act_open_op_student_view" />
+      <field name="sequence" eval="10" />
+      <field name="view_mode">list</field>
+      <field name="view_id" ref="view_op_student_list" />
+    </record>
 
 
-        <record id="act_open_student_view_2" model="ir.actions.act_window">
-            <field name="name">Students</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">op.student</field>
-            <field name="binding_view_types">form</field>
-            <field name="view_mode">list,form</field>
-            <field name="search_view_id" ref="view_op_student_search"/>
-            <field name="domain">[]</field>
-            <field name="context">{}</field>
-        </record>
-    </data>
+    <record id="act_open_student_view_2" model="ir.actions.act_window">
+      <field name="name">Students</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">op.student</field>
+      <field name="binding_view_types">form</field>
+      <field name="view_mode">list,form</field>
+      <field name="search_view_id" ref="view_op_student_search" />
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+    </record>
+  </data>
 </odoo>

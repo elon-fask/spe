@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="action_manage_student_configuration" model="ir.actions.act_window">
-        <field name="name">Settings</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.config.settings</field>
-        <field name="view_mode">form</field>
-        <field name="target">inline</field>
-        <field name="context">{'module': 'manage_student'}</field>
-    </record>
+  <record id="action_manage_student_configuration" model="ir.actions.act_window">
+    <field name="name">Settings</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.config.settings</field>
+    <field name="view_mode">form</field>
+    <field name="target">inline</field>
+    <field name="context">{'module': 'manage_student'}</field>
+  </record>
 
-    <!-- Manage Student Menu -->
-    <menuitem id="menu_manage_student_root"
-              name="Manage Students"
-              sequence="220"
-              web_icon="manage_student,static/description/sis.png"/>
+  <!-- Manage Student Menu -->
+  <menuitem id="menu_manage_student_root"
+    name="Manage Students"
+    sequence="220"
+    web_icon="manage_student,static/description/sis.png" />
 
-    <menuitem id="menu_manage_student_main"
-              name="Students"
-              parent="menu_manage_student_root"
-              sequence="10"
-              action="act_open_op_student_view"/>
+  <menuitem id="menu_manage_student_main"
+    name="Students"
+    parent="menu_manage_student_root"
+    sequence="10"
+    action="act_open_op_student_view" />
 
-    <menuitem id="menu_manage_student_general"
-              name="General"
-              parent="menu_manage_student_root"
-              sequence="30"/>
+  <menuitem id="menu_manage_student_general"
+    name="General"
+    parent="menu_manage_student_root"
+    sequence="30" />
 
-    <!-- Reporting Menu -->
-    <menuitem id="menu_manage_student_report_main"
-              name="Reporting"
-              parent="menu_manage_student_root"
-              sequence="40"/>
+  <!-- Reporting Menu -->
+  <menuitem id="menu_manage_student_report_main"
+    name="Reporting"
+    parent="menu_manage_student_root"
+    sequence="40" />
 
-    <menuitem name="Settings"
-              id="menu_manage_student_config"
-              action="action_manage_student_configuration"
-              parent="menu_manage_student_general"
-              sequence="1"/>
+  <menuitem name="Settings"
+    id="menu_manage_student_config"
+    action="action_manage_student_configuration"
+    parent="menu_manage_student_general"
+    sequence="1" />
 
 </odoo>

@@ -3,6 +3,7 @@
 
 from odoo import models, fields, api, tools, _
 from odoo.exceptions import ValidationError
+from datetime import timedelta, datetime
 
 
 class SessionCandidate(models.Model):
@@ -24,9 +25,9 @@ class SessionCandidate(models.Model):
 class Session(models.Model):
     _name = "mo.session"
     _description = "manage session"
-    _inherits = {"res.partner": "partner_id"}
+    # _inherits = {"res.partner": "partner_id"}
 
-    partner_id = fields.Many2one("res.partner", "Partner")
+    # partner_id = fields.Many2one("res.partner", "Partner")
     session_name = fields.Char(string="Session Name")
     session_number = fields.Char(string="Session Number")
     start_date = fields.Date(string="Start Date")
@@ -44,11 +45,11 @@ class Session(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),
-            ("done", "Ongoing"),
-            ("cancel", "Upcoming"),
+            ("ongoing", "Ongoing"),
+            ("upcoming", "Upcoming"),
         ],
         string="Status",
-        default="draft",
+        default="upcoming",
     )
     evaluation_date = fields.Date(string="Evaluation Date")
     registration_close_date = fields.Date(string="Registration Close Date")
@@ -85,19 +86,32 @@ class Session(models.Model):
     # pending_transactions = fields.Integer("Pending Transactions")
     materials_status = fields.Boolean("Materials Status", default=False)
 
-    start_date = fields.Datetime(string="Start Date", required=True)
-    end_date = fields.Datetime(string="End Date", required=True)
+    # start_date = fields.Datetime(string="Start Date", required=True)
+    # end_date = fields.Datetime(string="End Date", required=True)
     # capacity = fields.Integer(string="Capacity")
     # empty_place = fields.Integer(string="Empty Place")
-    session_candidate_details_ids = fields.One2many(
-        "mo.candidate", "partner_id", string="Session Candidate Details"
-    )
+    # session_candidate_details_ids = fields.One2many(
+    #     "mo.candidate", "partner_id", string="Session Candidate Details"
+    # )
     active = fields.Boolean(default=True)
 
     parent_id = fields.Many2one("mo.session", string="Session Parent")
 
-    @api.constrains("parent_id")
-    def _check_parent_id_recursion(self):
-        if not self._check_recursion():
-            raise ValidationError(_("You cannot create recursive Session."))
-        return True
+    is_ongoing = fields.Boolean(
+        string="Is Ongoing", compute="_compute_is_ongoing", store=False
+    )
+
+    @api.depends("start_date", "end_date")
+    def _compute_is_ongoing(self):
+        today = fields.Date.context_today(self)
+        week_end = today + timedelta(days=(7 - today.weekday()))
+        for session in self:
+            session.is_ongoing = (
+                session.start_date <= week_end and session.end_date >= today
+            )
+
+    # @api.constrains("parent_id")
+    # def _check_parent_id_recursion(self):
+    #     if not self._check_recursion():
+    #         raise ValidationError(_("You cannot create recursive Session."))
+    #     return True

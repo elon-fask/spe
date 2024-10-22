@@ -101,8 +101,11 @@
                 </group>
               </page>
               <page name="Applications Details" string="Applications Details">
-                <field name="session_details_ids" />
-              </page>
+                 <field name="application_line_ids" />
+                </page>
+              <page name="Sessions Details" string="Sessions Details">
+                <field name="session_details_ids"/>
+                </page>
             </notebook>
           </sheet>
         </form>

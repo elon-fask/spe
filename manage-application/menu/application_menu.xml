@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action for Settings -->
+        <record id="action_manage_application_configuration" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module':'manage-application'}</field>
+        </record>
+
+        <record id="act_open_application_view_2" model="ir.actions.act_window">
+            <field name="name">Application view2</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.application</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Root menu item for Applications -->
+        <menuitem
+            id="menu_manage_application_root"
+            name="Applications"
+            sequence="1"
+            web_icon="manage-application,static/description/icon-crane.png"/>
+
+        <!-- Menu item for Application Types -->
+        <menuitem 
+            id="menu_manage_application_main"
+            name="Application Types"
+            parent="menu_manage_application_root"
+            sequence="2"
+            action="act_open_op_application_view"/>
+
+        <!-- General Menu Item -->
+        <menuitem id="menu_manage_application_general"
+            name="General"
+            parent="menu_manage_application_root"
+            sequence="30" />
+
+        <!-- Test Menu Item -->
+        <menuitem id="menu_manage_application_test"
+            name="Test"
+            action="act_open_application_view_2"
+            parent="menu_manage_application_general"
+            sequence="40"/>
+
+        <!-- Commented Settings Menu Item (if needed in future) -->
+        <menuitem name="Settings"
+            id="menu_manage_session_config"
+            action="action_manage_application_configuration"
+            parent="menu_manage_application_general"
+            sequence="20" /> 
+        
+    </data>
+</odoo>

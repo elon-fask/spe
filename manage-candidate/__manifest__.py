@@ -18,6 +18,7 @@
         "views/candidate_view.xml",
         "views/candidate_session_view.xml",
         "views/session_view.xml",
+        "views/application_view.xml",
         "menu/core_menu.xml",
     ],
     "demo": [],

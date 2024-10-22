@@ -7,6 +7,44 @@ from odoo import models, fields, api, tools, _
 from odoo.exceptions import ValidationError
 
 
+class CandidateApplicationLine(models.Model):
+    _name = "mo.candidate.application.line"
+    _description = "Manage Candidate Application Line"
+    _rec_name = "candidate_id"
+
+    candidate_id = fields.Many2one(
+        "mo.candidate", "Candidate", ondelete="cascade", tracking=True
+    )
+    application_id = fields.Many2one(
+        "mo.application", "Application", required=True, tracking=True
+    )
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("valid", "Valid"),
+            ("archive", "Archived"),
+        ],
+        string="Status",
+        default="valid",
+    )
+    # Related fields from mo.application
+    application_name = fields.Char(
+        related="application_id.application_name", string="Application Name", store=True
+    )
+    application_price = fields.Monetary(
+        related="application_id.application_price", string="Price", store=True
+    )
+    latefee = fields.Monetary(
+        related="application_id.latefee", string="Late Fee", store=True
+    )
+    iaifee = fields.Monetary(
+        related="application_id.iaifee", string="IAI Fee", store=True
+    )
+    currency_id = fields.Many2one(
+        related="application_id.currency_id", string="Currency", store=True
+    )
+
+
 class CandidateSession(models.Model):
     _name = "mo.candidate.session"
     _description = "Manage Candidate Session"
@@ -20,17 +58,14 @@ class CandidateSession(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),
-            ("done", "Done"),
-            ("cancel", "Cancel"),
-            ("pending", "Pending"),
-            ("rejected", "Rejected"),
-            ("running", "Running"),
+            ("done", "Ongoing"),
+            ("cancel", "Upcoming"),
         ],
         string="Status",
-        default="draft",
+        default="valid",
     )
-    start_date = fields.Date("Start Date", required=True, tracking=True)
-    end_date = fields.Date("End Date", required=True, tracking=True)
+    start_date = fields.Date("Start Date", tracking=True)
+    end_date = fields.Date("End Date", tracking=True)
 
 
 class Candidate(models.Model):
@@ -44,7 +79,7 @@ class Candidate(models.Model):
     last_name = fields.Char("Last Name")
     birth_date = fields.Date("Birth Date")
     nationality = fields.Many2one("res.country", "Nationality")
-    emergency_contact = fields.Many2one("res.partner", "Emergency Contact")
+    # emergency_contact = fields.Many2one("res.partner", "Emergency Contact")
     id_number = fields.Char("ID Card Number", size=64)
     partner_id = fields.Many2one(
         "res.partner", "Partner", required=False, ondelete="cascade"
@@ -59,7 +94,7 @@ class Candidate(models.Model):
             ("running", "Running"),
         ],
         string="Status",
-        default="draft",
+        default="running",
     )
     gr_no = fields.Char("Registration Number", size=20)
 
@@ -68,6 +103,10 @@ class Candidate(models.Model):
     # )
     session_details_ids = fields.One2many(
         "mo.candidate.session", "candidate_id", "Session Details"
+    )
+
+    application_line_ids = fields.One2many(
+        "mo.candidate.application.line", "candidate_id", "Application Line"
     )
     gender = fields.Selection(
         [("m", "Male"), ("f", "Female"), ("o", "Other")],

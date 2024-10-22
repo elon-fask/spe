@@ -7,62 +7,62 @@
             <field name="model">op.timetable</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <tree string="Timetable">
+                <list string="Timetable">
                     <field name="name" />
                     <field name="session_id" />
                     <field name="start_datetime" />
                     <field name="end_datetime" />
                     <field name="state" />
-                </tree>
+                </list>
             </field>
         </record>
 
         <!-- Form View for Timetable -->
         <record id="view_op_timetable_form" model="ir.ui.view">
-            <field name="name">op.timetable.form</field>
-            <field name="model">op.timetable</field>
-            <field name="priority" eval="8" />
-            <field name="arch" type="xml">
-                <form string="Timetable">
-                    <header>
-                        <button type="object" name="timetable_confirm" 
-                                string="Confirm" class="oe_highlight" 
-                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-                        <button type="object" name="timetable_done" 
-                                string="Done" class="oe_highlight" 
-                                attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
-                        <button type="object" name="timetable_draft" 
-                                string="Set to Draft" class="oe_highlight" 
-                                attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
-                        <button type="object" name="timetable_cancel" 
-                                string="Cancel" 
-                                attrs="{'invisible': [('state', 'in', ['draft', 'confirm'])]}"/>
-                        <field name="state" widget="statusbar" status="state"/>
-                    </header>
-                    <sheet>
-                        <div name="button_box" class="oe_button_box">
-                            <!-- Button box for extra buttons -->
-                        </div>
-                        <field name="active" invisible="1"/>
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
-                        <h1>
-                            <field name="name"/>
-                        </h1>
-                        <group>
-                            <field name="name"/>
-                            <field name="session_id"/>
-                        </group>
-                        <group>
-                            <field name="session_id"/>
-                            <label for="start_datetime" string="Start Date"/>
-                            <div class="o_row">
-                                <field name="start_datetime" widget="daterange" class="oe_inline"
-                                       options="{'related_end_datetime': 'end_datetime'}"/>
-                            </div>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
+          <field name="name">op.timetable.form</field>
+          <field name="model">op.timetable</field>
+          <field name="priority" eval="8"/>
+          <field name="arch" type="xml">
+              <form string="Timetable">
+                  <header>
+                      <button type="object" name="timetable_confirm" 
+                              string="Confirm" class="oe_highlight" 
+                              states="draft"/>
+                      <button type="object" name="timetable_done" 
+                              string="Done" class="oe_highlight" 
+                              states="confirm"/>
+                      <button type="object" name="timetable_draft" 
+                              string="Set to Draft" class="oe_highlight" 
+                              states="cancel"/>
+                      <button type="object" name="timetable_cancel" 
+                              string="Cancel" 
+                              states="draft,confirm"/>
+                      <field name="state" widget="statusbar" status="state"/>
+                  </header>
+                  <sheet>
+                      <div name="button_box" class="oe_button_box">
+                          <!-- Button box for extra buttons -->
+                      </div>
+                      <field name="active" invisible="1"/>
+                      <widget name="web_ribbon" title="Archived" bg_color="bg-danger" states="active"/>
+                      <h1>
+                          <field name="name"/>
+                      </h1>
+                      <group>
+                          <field name="name"/>
+                          <field name="session_id"/>
+                      </group>
+                      <group>
+                          <field name="session_id"/>
+                          <label for="start_datetime" string="Start Date"/>
+                          <div class="o_row">
+                              <field name="start_datetime" widget="daterange" class="oe_inline"
+                                    options="{'related_end_datetime': 'end_datetime'}"/>
+                          </div>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
         </record>
 
         <!-- Calendar View for Timetable -->

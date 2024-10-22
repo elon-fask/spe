@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- List View for Applications -->
+    <record id="view_application_list" model="ir.ui.view">
+      <field name="name">mo.application.list</field>
+      <field name="model">mo.application</field>
+      <field name="arch" type="xml">
+        <list string="Applications">
+          <field name="application_name" />
+          <field name="state" />
+          <field name="application_keyword" />
+          <field name="application_price" />
+          <field name="latefee" />
+          <field name="iaifee" />
+        </list>
+      </field>
+    </record>
+
+    <!-- Form View for Applications -->
+    <record id="view_application_form" model="ir.ui.view">
+      <field name="name">mo.application.form</field>
+      <field name="model">mo.application</field>
+      <field name="arch" type="xml">
+        <form string="Application">
+          <sheet>
+            <group>
+              <field name="application_name" />
+              <field name="application_keyword" />
+              <field name="state" />
+            </group>
+            <group>
+              <field name="application_description" />
+            </group>
+            <group>
+              <field name="latefee" />
+              <field name="iaifee" />
+              <field name="application_price" />
+              <field name="currency_id" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Action to Open Applications -->
+    <record id="action_application_view" model="ir.actions.act_window">
+      <field name="name">Applications</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="binding_view_types">form</field>
+      <field name="res_model">mo.application</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_mo_application_view_list">
+      <field name="act_window_id" ref="action_application_view" />
+      <field name="sequence" eval="10" />
+      <field name="view_mode">list</field>
+      <field name="view_id" ref="view_application_list" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_mo_application_view_form">
+      <field name="act_window_id" ref="action_application_view" />
+      <field name="sequence" eval="20" />
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_application_form" />
+    </record>
+
+
+  </data>
+</odoo>

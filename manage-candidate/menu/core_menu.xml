@@ -14,8 +14,40 @@
     name="Session"
     parent="menu_manage_candidate_root"
     sequence="20"
+  />
+  <menuitem id="menu_manage_session_main"
+    name="All Sessions"
+    parent="menu_manage_candidate_root"
+    sequence="20"
     action="act_open_mo_session_view"
   />
+  <menuitem id="menu_ongoing_session_sub"
+    name="Ongoing Sessions"
+    parent="menu_manage_session_main"
+    sequence="20"
+    action="action_ongoing_sessions"
+  />
+  <menuitem id="menu_upcoming_session_sub"
+    name="Upcoming Sessions"
+    parent="menu_manage_session_main"
+    sequence="20"
+    action="action_upcoming_sessions"
+  />
+
+  <!-- Menu Item for Applications -->
+  <menuitem id="menu_application_root"
+    name="Applications"
+    sequence="20"
+    parent="menu_manage_candidate_root"
+  />
+
+  <menuitem id="menu_application_main"
+    name="Manage Applications"
+    parent="menu_application_root"
+    sequence="20"
+    action="action_application_view"
+  />
+
   <!-- <menuitem id="menu_application_main" -->
   <!--   name="Applications" -->
   <!--   parent="menu_manage_candidate_root" -->
